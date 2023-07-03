@@ -58,6 +58,7 @@ public class CalculatorTest {
         String input3 = "1,2,3";
         String input4 = "1,2:3";
         String input5 = "//;\n1;2;3";
+        String input6 = null;
 
         // when
         int result1 = Calculator.sum(input1);
@@ -65,6 +66,7 @@ public class CalculatorTest {
         int result3 = Calculator.sum(input3);
         int result4 = Calculator.sum(input4);
         int result5 = Calculator.sum(input5);
+        int result6 = Calculator.sum(input6);
 
         // then
         assertThat(result1).isEqualTo(0);
@@ -72,5 +74,6 @@ public class CalculatorTest {
         assertThat(result3).isEqualTo(6);
         assertThat(result4).isEqualTo(6);
         assertThat(result5).isEqualTo(6);
+        assertThat(result6).isEqualTo(0);
     }
 }
