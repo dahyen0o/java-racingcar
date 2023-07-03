@@ -51,6 +51,15 @@ public class CalculatorTest {
     }
 
     @Test
+    void 범위밖숫자입력시_파싱실패_RuntimeException발생() {
+        // given
+        String input1 = "123123123123123";
+
+        // when & then
+        assertThatThrownBy(() -> Calculator.parse(input1)).isInstanceOf(RuntimeException.class);
+    }
+
+    @Test
     void 올바른문자열일때_계산성공() {
         // given
         String input1 = "";
