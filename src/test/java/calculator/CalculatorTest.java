@@ -60,6 +60,15 @@ public class CalculatorTest {
     }
 
     @Test
+    void 계산결과가정수범위를벗어날때_계산실패_RuntimeException발생() {
+        // given
+        String input1 = "1000000000:1000000000:1000000000";
+
+        // when & then
+        assertThatThrownBy(() -> Calculator.sum(input1)).isInstanceOf(RuntimeException.class);
+    }
+
+    @Test
     void 올바른문자열일때_계산성공() {
         // given
         String input1 = "";
