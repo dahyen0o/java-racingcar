@@ -25,7 +25,7 @@ public class Calculator {
     }
 
     public static int sum(String text) {
-        if (text.isEmpty()) {
+        if (text == null || text.isEmpty()) {
             return 0;
         }
 
