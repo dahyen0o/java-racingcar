@@ -89,4 +89,18 @@ public class RacingCarTest {
         // when & then
         assertThat(race.getCount()).isEqualTo(count);
     }
+    
+    @Test
+    void 경주진행할때_시행횟수차감성공() {
+        // given
+        Car[] cars = new Car[]{Car.create("pobi"), Car.create("crong"), Car.create("honux")};
+        int beforeCount = 5;
+        Race race = Race.of(cars, beforeCount);
+
+        // when
+        race.play();
+        
+        // then
+        assertThat(race.getCount()).isEqualTo(beforeCount - 1);
+    }
 }
