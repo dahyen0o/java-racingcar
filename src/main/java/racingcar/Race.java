@@ -17,4 +17,8 @@ public class Race {
     public int getCount() {
         return this.count;
     }
+
+    public void play() {
+        this.count--;
+    }
 }
