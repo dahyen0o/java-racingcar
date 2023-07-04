@@ -137,4 +137,6 @@ public class RacingCarTest {
             assertThat(pobi.getPosition()).isEqualTo(initPosition);
         });
     }
+
+
 }
