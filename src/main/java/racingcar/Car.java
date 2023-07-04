@@ -2,7 +2,7 @@ package racingcar;
 
 public class Car {
     private final String name;
-    private final int position;
+    private int position;
 
     private Car(String name) {
         this(name, 0);
@@ -23,5 +23,9 @@ public class Car {
 
     public int getPosition() {
         return position;
+    }
+
+    public void moveForward() {
+        this.position++;
     }
 }
