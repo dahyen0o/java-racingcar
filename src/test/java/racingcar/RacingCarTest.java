@@ -88,7 +88,7 @@ public class RacingCarTest {
         Race race = Race.of(cars, count);
 
         // when & then
-        assertThat(race.getCount()).isEqualTo(count);
+        assertThat(race.getLeftRound()).isEqualTo(count);
     }
 
     @Test
@@ -102,7 +102,7 @@ public class RacingCarTest {
         race.play(new FixedNumberGenerator(4));
 
         // then
-        assertThat(race.getCount()).isEqualTo(beforeCount - 1);
+        assertThat(race.getLeftRound()).isEqualTo(beforeCount - 1);
     }
 
     @Test
