@@ -1,17 +1,13 @@
-package racingCar;
+package racingcar;
 
 import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-import racingcar.Car;
-import racingcar.Parser;
-import racingcar.RaceUtil;
-import racingcar.RandomUtil;
 
 import java.util.stream.IntStream;
 
 public class RacingCarTest {
-    
+
     @Test
     void 랜덤값생성을요청했을때_성공() {
         // when
@@ -59,7 +55,7 @@ public class RacingCarTest {
     void 자동차생성할때_성공() {
         // given
         String input = "pobi";
-        Car car = Car.from(input);
+        Car car = Car.create(input);
 
         // when
         int position = car.getPosition();
@@ -73,7 +69,7 @@ public class RacingCarTest {
     @Test
     void 자동차전진요청할때_성공() {
         // given
-        Car car = Car.from("hyun");
+        Car car = Car.create("hyun");
         int beforePosition = car.getPosition();
 
         // when
@@ -81,5 +77,16 @@ public class RacingCarTest {
 
         // then
         assertThat(car.getPosition()).isEqualTo(beforePosition + 1);
+    }
+
+    @Test
+    void 경주생성할때_성공() {
+        // given
+        Car[] cars = new Car[]{Car.create("pobi"), Car.create("crong"), Car.create("honux")};
+        int count = 5;
+        Race race = Race.of(cars, count);
+
+        // when & then
+        assertThat(race.getCount()).isEqualTo(count);
     }
 }
