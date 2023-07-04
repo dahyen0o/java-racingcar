@@ -69,4 +69,17 @@ public class RacingCarTest {
         assertThat(position).isEqualTo(0);
         assertThat(name).isEqualTo(input);
     }
+
+    @Test
+    void 자동차전진요청할때_성공() {
+        // given
+        Car car = Car.from("hyun");
+        int beforePosition = car.getPosition();
+
+        // when
+        car.moveForward();
+
+        // then
+        assertThat(car.getPosition()).isEqualTo(beforePosition + 1);
+    }
 }
