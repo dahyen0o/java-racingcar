@@ -1,4 +1,4 @@
-package calculator;
+package racingcar;
 
 import racingcar.NumberGenerator;
 

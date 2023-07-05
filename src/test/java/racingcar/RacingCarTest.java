@@ -2,9 +2,9 @@ package racingcar;
 
 import static org.assertj.core.api.Assertions.*;
 
-import calculator.FixedNumberGenerator;
 import org.junit.jupiter.api.Test;
 import racingcar.domain.Car;
+import racingcar.domain.Name;
 import racingcar.dto.Request;
 import racingcar.service.Race;
 import racingcar.util.Parser;
@@ -52,9 +52,9 @@ public class RacingCarTest {
     }
 
     @Test
-    void 여섯자이상의이름이들어올때_파싱실패_RuntimeException발생() {
+    void 여섯자이상의이름이들어올때_생성실패_RuntimeException발생() {
         // when & then
-        assertThatThrownBy(() -> Parser.parse("pobiii,crong,honuxxx"))
+        assertThatThrownBy(() -> Name.from("pobiii"))
                 .isInstanceOf(RuntimeException.class);
     }
 
@@ -145,9 +145,11 @@ public class RacingCarTest {
     }
 
     @Test
-    void 이름이비었을때_파싱실패_RuntimeException발생() {
+    void 이름이비었거나null일때_생성실패_RuntimeException발생() {
         // when & then
-        assertThatThrownBy(() -> Parser.parse(""))
+        assertThatThrownBy(() -> Name.from(""))
+                .isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(() -> Name.from(null))
                 .isInstanceOf(RuntimeException.class);
     }
 
