@@ -3,6 +3,7 @@ package racingcar.service;
 import racingcar.NumberGenerator;
 import racingcar.domain.Cars;
 import racingcar.domain.Round;
+import racingcar.dto.RaceRequest;
 import racingcar.util.RaceUtil;
 import racingcar.domain.Car;
 
@@ -26,6 +27,10 @@ public class Race {
         }
 
         return new Race(cars, count);
+    }
+
+    public static Race from(RaceRequest raceRequest) {
+        return of(raceRequest.getNames(), raceRequest.getTotalRound());
     }
 
     public List<Car> getCars() {
