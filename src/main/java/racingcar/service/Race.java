@@ -1,6 +1,7 @@
 package racingcar.service;
 
 import racingcar.NumberGenerator;
+import racingcar.domain.Round;
 import racingcar.util.RaceUtil;
 import racingcar.domain.Car;
 
@@ -10,11 +11,11 @@ import java.util.List;
 public class Race {
 
     private final Car[] cars;
-    private int leftRound;
+    private final Round leftRound;
 
     private Race(Car[] cars, int leftRound) {
         this.cars = cars;
-        this.leftRound = leftRound;
+        this.leftRound = Round.from(leftRound);
     }
 
     public static Race of(Car[] cars, int count) {
@@ -22,15 +23,19 @@ public class Race {
     }
 
     public int getLeftRound() {
-        return this.leftRound;
+        return this.leftRound.getRound();
     }
 
     public void play(NumberGenerator numberGenerator) {
         startRound();
         for (Car car : cars) {
-            if (RaceUtil.determineCarMovement(numberGenerator.generate())) {
-                car.moveForward();
-            }
+            doPlay(numberGenerator, car);
+        }
+    }
+
+    private void doPlay(NumberGenerator numberGenerator, Car car) {
+        if (RaceUtil.determineCarMovement(numberGenerator.generate())) {
+            car.moveForward();
         }
     }
 
@@ -51,7 +56,7 @@ public class Race {
     }
 
     private void startRound() {
-        this.leftRound--;
+        this.leftRound.decrease();
     }
 
     public Car[] getCars() {
