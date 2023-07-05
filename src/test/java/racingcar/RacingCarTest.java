@@ -2,7 +2,13 @@ package racingcar;
 
 import static org.assertj.core.api.Assertions.*;
 
+import calculator.FixedNumberGenerator;
 import org.junit.jupiter.api.Test;
+import racingcar.domain.Car;
+import racingcar.dto.Request;
+import racingcar.service.Race;
+import racingcar.util.Parser;
+import racingcar.util.RaceUtil;
 
 import java.util.stream.IntStream;
 

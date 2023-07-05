@@ -1,4 +1,7 @@
-package racingcar;
+package racingcar.dto;
+
+import racingcar.domain.Car;
+import racingcar.domain.CarVO;
 
 import java.util.Arrays;
 

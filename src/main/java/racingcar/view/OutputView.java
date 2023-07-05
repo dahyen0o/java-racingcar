@@ -1,4 +1,7 @@
-package racingcar;
+package racingcar.view;
+
+import racingcar.dto.Response;
+import racingcar.domain.CarVO;
 
 public class OutputView {
     private static final String START_MESSAGE = "실행 결과";

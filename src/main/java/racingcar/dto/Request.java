@@ -1,5 +1,7 @@
-package racingcar;
+package racingcar.dto;
 
+
+import racingcar.util.Parser;
 
 public class Request {
     private final String[] names;

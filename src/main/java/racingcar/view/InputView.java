@@ -1,4 +1,6 @@
-package racingcar;
+package racingcar.view;
+
+import racingcar.dto.Request;
 
 import java.io.BufferedReader;
 import java.io.IOException;

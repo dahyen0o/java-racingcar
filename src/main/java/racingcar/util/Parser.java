@@ -1,4 +1,4 @@
-package racingcar;
+package racingcar.util;
 
 public class Parser {
     public static String[] parse(String input) {
