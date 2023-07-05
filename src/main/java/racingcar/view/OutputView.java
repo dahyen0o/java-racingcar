@@ -1,6 +1,6 @@
 package racingcar.view;
 
-import racingcar.dto.Response;
+import racingcar.dto.RaceResponse;
 import racingcar.domain.CarVO;
 
 public class OutputView {
@@ -10,8 +10,8 @@ public class OutputView {
         System.out.println(START_MESSAGE);
     }
 
-    public static void printRound(Response response) {
-        for (CarVO carVO : response.getCars()) {
+    public static void printRound(RaceResponse raceResponse) {
+        for (CarVO carVO : raceResponse.getCars()) {
             System.out.printf("%s : %s%n", carVO.getName(), carVO.getPosition());
         }
         System.out.println();
