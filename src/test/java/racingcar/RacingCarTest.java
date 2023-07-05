@@ -78,23 +78,25 @@ public class RacingCarTest {
         assertThat(car.getPosition()).isEqualTo(beforePosition + 1);
     }
 
-    @Test
-    void 경주생성할때_성공() {
+    @ParameterizedTest
+    @ValueSource(strings = {"pobi,crong,honux", "pobi"})
+    void 경주생성할때_성공(String input) {
         // given
-        Car[] cars = new Car[]{Car.create("pobi"), Car.create("crong"), Car.create("honux")};
+        String[] names = input.split(",");
         int count = 5;
-        Race race = Race.of(cars, count);
+        Race race = Race.of(names, count);
 
         // when & then
         assertThat(race.getLeftRound()).isEqualTo(count);
     }
 
-    @Test
-    void 경주진행할때_시행횟수차감성공() {
+    @ParameterizedTest
+    @ValueSource(strings = {"pobi,crong,honux", "pobi"})
+    void 경주진행할때_시행횟수차감성공(String input) {
         // given
-        Car[] cars = new Car[]{Car.create("pobi"), Car.create("crong"), Car.create("honux")};
+        String[] names = input.split(",");
         int beforeCount = 5;
-        Race race = Race.of(cars, beforeCount);
+        Race race = Race.of(names, beforeCount);
 
         // when
         race.play(new FixedNumberGenerator(4));
@@ -103,37 +105,42 @@ public class RacingCarTest {
         assertThat(race.getLeftRound()).isEqualTo(beforeCount - 1);
     }
 
-    @Test
-    void 경주진행할때_자동차전진성공() {
+    @ParameterizedTest
+    @ValueSource(strings = {"pobi,crong,honux", "pobi"})
+    void 경주진행할때_자동차전진성공(String input) {
         // given
-        Car pobi = Car.create("pobi");
-        int initPosition = pobi.getPosition();
-
-        Car[] cars = new Car[]{pobi};
-        Race race = Race.of(cars, 5);
+        String[] names = input.split(",");
+        Race race = Race.of(names, 5);
 
         // when & then
-        int round = 1;
-        for (int i = 4; i < 9; i++) {
-            race.play(new FixedNumberGenerator(i));
-            assertThat(pobi.getPosition()).isEqualTo(initPosition + round++);
+        race.play(new FixedNumberGenerator(4));
+        for (Car car : race.getCars()) {
+            assertThat(car.getPosition()).isEqualTo(1);
+        }
+
+        race.play(new FixedNumberGenerator(5));
+        for (Car car : race.getCars()) {
+            assertThat(car.getPosition()).isEqualTo(2);
         }
     }
 
-    @Test
-    void 경주진행할때_자동차정지성공() {
+    @ParameterizedTest
+    @ValueSource(strings = {"pobi,crong,honux", "pobi"})
+    void 경주진행할때_자동차정지성공(String input) {
         // given
-        Car pobi = Car.create("pobi");
-        int initPosition = pobi.getPosition();
-
-        Car[] cars = new Car[]{pobi};
-        Race race = Race.of(cars, 5);
+        String[] names = input.split(",");
+        Race race = Race.of(names, 5);
 
         // when & then
-        IntStream.rangeClosed(0, 3).forEach(i -> {
-            race.play(new FixedNumberGenerator(i));
-            assertThat(pobi.getPosition()).isEqualTo(initPosition);
-        });
+        race.play(new FixedNumberGenerator(0));
+        for (Car car : race.getCars()) {
+            assertThat(car.getPosition()).isEqualTo(0);
+        }
+
+        race.play(new FixedNumberGenerator(3));
+        for (Car car : race.getCars()) {
+            assertThat(car.getPosition()).isEqualTo(0);
+        }
     }
 
     @Test

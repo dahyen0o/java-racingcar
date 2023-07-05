@@ -1,6 +1,7 @@
 package racingcar.service;
 
 import racingcar.NumberGenerator;
+import racingcar.domain.Cars;
 import racingcar.domain.Round;
 import racingcar.util.RaceUtil;
 import racingcar.domain.Car;
@@ -10,16 +11,25 @@ import java.util.List;
 
 public class Race {
 
-    private final Car[] cars;
+    private final Cars cars;
     private final Round leftRound;
 
-    private Race(Car[] cars, int leftRound) {
+    private Race(Cars cars, int leftRound) {
         this.cars = cars;
         this.leftRound = Round.from(leftRound);
     }
 
-    public static Race of(Car[] cars, int count) {
+    public static Race of(String[] carNames, int count) {
+        Cars cars = Cars.create();
+        for (String carName : carNames) {
+            cars.add(Car.create(carName));
+        }
+
         return new Race(cars, count);
+    }
+
+    public List<Car> getCars() {
+        return this.cars.getCars();
     }
 
     public int getLeftRound() {
@@ -28,7 +38,7 @@ public class Race {
 
     public void play(NumberGenerator numberGenerator) {
         startRound();
-        for (Car car : cars) {
+        for (Car car : cars.getCars()) {
             doPlay(numberGenerator, car);
         }
     }
@@ -41,12 +51,12 @@ public class Race {
 
     public String[] findWinners() {
         int maxPosition = 0;
-        for (Car car : cars) {
+        for (Car car : cars.getCars()) {
             maxPosition = Math.max(car.getPosition(), maxPosition);
         }
 
         List<String> names = new ArrayList<>();
-        for (Car car : cars) {
+        for (Car car : cars.getCars()) {
             if (maxPosition == car.getPosition()) {
                 names.add(car.getName());
             }
@@ -57,9 +67,5 @@ public class Race {
 
     private void startRound() {
         this.leftRound.decrease();
-    }
-
-    public Car[] getCars() {
-        return this.cars;
     }
 }
