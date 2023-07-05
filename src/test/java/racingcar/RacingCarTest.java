@@ -3,11 +3,12 @@ package racingcar;
 import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import racingcar.domain.Car;
 import racingcar.domain.Name;
-import racingcar.dto.Request;
+import racingcar.domain.Round;
 import racingcar.service.Race;
-import racingcar.util.Parser;
 import racingcar.util.RaceUtil;
 
 import java.util.stream.IntStream;
@@ -40,15 +41,6 @@ public class RacingCarTest {
         IntStream.rangeClosed(4, 9).forEach(i -> {
             assertThat(RaceUtil.determineCarMovement(i)).isTrue();
         });
-    }
-
-    @Test
-    void 올바른입력이주어질때_파싱성공() {
-        // when
-        String[] cars = Parser.parse("pobi,crong,honux");
-
-        // then
-        assertThat(cars).isEqualTo(new String[]{"pobi", "crong", "honux"});
     }
 
     @Test
@@ -153,19 +145,11 @@ public class RacingCarTest {
                 .isInstanceOf(RuntimeException.class);
     }
 
-    @Test
-    void 시도횟수가비었거나0이하일때_실패_RuntimeException발생() {
-        // given
-        String totalRound1 = "";
-        String totalRound2 = "0";
-        String totalRound3 = "-10";
-
+    @ParameterizedTest(name = "시도횟수가0이하일때_실패_RuntimeException발생[{arguments}]")
+    @ValueSource(ints = {0, -1})
+    void 시도횟수가0이하일때_실패_RuntimeException발생(int totalRound) {
         // when & then
-        assertThatThrownBy(() -> new Request("pobi", totalRound1))
-                .isInstanceOf(RuntimeException.class);
-        assertThatThrownBy(() -> new Request("pobi", totalRound2))
-                .isInstanceOf(RuntimeException.class);
-        assertThatThrownBy(() -> new Request("pobi", totalRound3))
+        assertThatThrownBy(() -> Round.from(totalRound))
                 .isInstanceOf(RuntimeException.class);
     }
 }
